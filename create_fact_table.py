@@ -44,7 +44,7 @@ def create_product_table(
     return df
 
 
-def create_fact_table(
+def create_sales_table(
     customer_table:pd.DataFrame,
     product_table:pd.DataFrame,
     number_of_rows:int):
@@ -72,7 +72,7 @@ def create_fact_table(
 def main():
     customer_table:pd.DataFrame = create_customer_table(CUSTOMER_TABLE_SIZE)
     product_table:pd.DataFrame = create_product_table(FAKE_PRODUCTS)
-    fact_table = create_fact_table(
+    fact_table = create_sales_table(
         customer_table=customer_table,
         product_table=product_table,
         number_of_rows=1000)
