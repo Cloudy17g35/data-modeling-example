@@ -13,7 +13,7 @@ FAKE_PRODUCTS:List[str] = [
     'laptop',
     'earphones',
     'keyboard'
-]
+    ]
 
 
 CUSTOMER_TABLE_SIZE:int = 30
@@ -32,10 +32,9 @@ def create_customer_table(row_number:int) -> pd.DataFrame:
 
 def create_product_table(
     fake_products:List[str]
-):
+    ):
     df:pd.DataFrame = pd.DataFrame()
-    for i, product in enumerate(
-        fake_products):
+    for i, product in enumerate(fake_products):
         df.loc[i, 'product_id'] = i + 1
         df.loc[i, 'product_name'] = product
         df.loc[i, 'product_price'] = random.randint(1, 100)
@@ -47,7 +46,7 @@ def create_sales_table(
     customer_table:pd.DataFrame,
     product_table:pd.DataFrame,
     number_of_rows:int):
-    all_dfs = []
+    all_dfs:List[pd.DataFrame] = []
     for i in range(number_of_rows):
         customer_sample = customer_table.sample(1).reset_index(drop=True)
         product_sample = product_table.sample(1).reset_index(drop=True)
@@ -68,7 +67,9 @@ def create_sales_table(
 
 def main():
     customer_table:pd.DataFrame = create_customer_table(CUSTOMER_TABLE_SIZE)
+    customer_table.to_csv('customer.csv', index=False)
     product_table:pd.DataFrame = create_product_table(FAKE_PRODUCTS)
+    product_table.to_csv('product.csv', index=False)
     sales_table:pd.DataFrame = create_sales_table(
         customer_table=customer_table,
         product_table=product_table,
@@ -87,9 +88,10 @@ def main():
     'product_price',
     'quantity',
     ]
-    fact_table = sales_table[columns_selected]
-    fact_table.to_csv(
-        'example_table.csv',
+
+    sales_table = sales_table[columns_selected]
+    sales_table.to_csv(
+        'sales_table.csv',
         index=False
         )
 
