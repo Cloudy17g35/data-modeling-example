@@ -17,7 +17,7 @@ FAKE_PRODUCTS:List[str] = [
 
 
 CUSTOMER_TABLE_SIZE:int = 30
-FACT_TABLE_SIZE:int = 1000
+SALES_TABLE_SIZE:int = 10000
 
 
 def create_customer_table(row_number:int) -> pd.DataFrame:
@@ -72,10 +72,11 @@ def create_sales_table(
 def main():
     customer_table:pd.DataFrame = create_customer_table(CUSTOMER_TABLE_SIZE)
     product_table:pd.DataFrame = create_product_table(FAKE_PRODUCTS)
-    fact_table = create_sales_table(
+    sales_table:pd.DataFrame = create_sales_table(
         customer_table=customer_table,
         product_table=product_table,
-        number_of_rows=1000)
+        number_of_rows=SALES_TABLE_SIZE
+        )
 
     columns_selected:List[str] = [
     'transaction_id',
@@ -89,8 +90,12 @@ def main():
     'product_price',
     'quantity',
     ]
-    fact_table = fact_table[columns_selected]
-    fact_table.to_csv('fact.csv', index=False)
+    fact_table = sales_table[columns_selected]
+    fact_table.to_csv(
+        'sales_table.csv',
+        index=False
+        )
+
 
 if __name__ == '__main__':
     main()
