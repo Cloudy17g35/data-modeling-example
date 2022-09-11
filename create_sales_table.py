@@ -21,12 +21,11 @@ SALES_TABLE_SIZE:int = 10000
 
 
 def create_customer_table(row_number:int) -> pd.DataFrame:
-    '''creates fake data with number of rows passed to the function'''
     df:pd.DataFrame = pd.DataFrame()
     for i in range(row_number):
         df.loc[i, 'customer_id'] = i + 1
         df.loc[i, 'customer_name'] = fake.name()
-        df.loc[i, 'customer_coutry'] = fake.country()
+        df.loc[i, 'customer_country'] = fake.country()
 
     return df
 
@@ -52,8 +51,6 @@ def create_sales_table(
     for i in range(number_of_rows):
         customer_sample = customer_table.sample(1).reset_index(drop=True)
         product_sample = product_table.sample(1).reset_index(drop=True)
-        # concated_df is
-        # single row from concated dataframes customer_sample and product_sample
         concated_df = pd.concat(
             [customer_sample, product_sample],
             axis=1
@@ -83,7 +80,7 @@ def main():
     'date',
     'customer_id',
     'customer_name',
-    'customer_coutry',
+    'customer_country',
     'product_id',
     'product_name',
     'product_brand',
