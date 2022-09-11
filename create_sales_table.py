@@ -92,7 +92,7 @@ def main():
     ]
     fact_table = sales_table[columns_selected]
     fact_table.to_csv(
-        'sales_table.csv',
+        'example_table.csv',
         index=False
         )
 
